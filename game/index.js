@@ -145,6 +145,8 @@ var colors = [
 
 function initBuffers() {	
 	
+	
+
 	// Coordinates
 		
 	triangleVertexPositionBuffer = gl.createBuffer();
@@ -407,7 +409,7 @@ function drawModel( angleXX, angleYY, angleZZ,
 	
 	mvMatrix = mult( mvMatrix, rotationXXMatrix( - 90 ) );
 	
-	mvMatrix = mult( mvMatrix, scalingMatrix( sx, sy, sz ) );
+	mvMatrix = mult( mvMatrix, scalingMatrix( 0.1, 0.1, 0.1 ) );
 						 
 	// Passing the Model View Matrix to apply the current transformation
 	
@@ -453,7 +455,6 @@ function drawScene() {
 	// Global transformation !!
 		
 	globalTz = -2.5;
-
 	
 	// Passing the Projection Matrix to apply the current projection
 	
@@ -564,7 +565,32 @@ function outputInfos(){
 
 //-----------------------------
 
-function drawline1(sp,x,y){
+function initaliens(){
+
+	var rows = ['invader3.obj','invader2.obj','invader2.obj',
+				'invader1.obj','invader1.obj'];
+
+	for (var i = 0, len = rows.length; i < len; i++) {
+		for (var j = 0; j < 10; j++) {
+
+			// create right offseted alien and push to alien
+			// array
+
+			console.log(rows[i]);
+			readOBJ(rows[i]);
+
+	
+		}
+	}
+
+}
+
+function readOBJ(file){
+
+	console.log("what")
+	
+	document.getElementById("obj-file").onchange(file);
+
 
 }
 
@@ -582,9 +608,13 @@ function setEventListeners(){
 	
 	// http://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line
 	
-	document.getElementById("obj-file").onchange = function(){
+	document.getElementById("obj-file").onchange = function(file){
 		
-		var file = this.files[0];
+		console.log("file:", file);
+
+		if (file.length < 1){
+			file = this.files[0];
+		}
 		
 		var reader = new FileReader();
 		
@@ -729,6 +759,8 @@ function runWebGL() {
 	initBuffers();
 	
 	tick();		// NEW --- A timer controls the rendering / animation    
+
+	initaliens();
 
 	outputInfos();
 }
