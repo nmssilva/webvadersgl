@@ -577,7 +577,7 @@ function initaliens(){
 			// array
 
 			console.log(rows[i]);
-			readOBJ(rows[i]);
+			//readOBJ(rows[i]);
 
 	
 		}
@@ -587,9 +587,10 @@ function initaliens(){
 
 function readOBJ(file){
 
-	console.log("what")
-	
-	document.getElementById("obj-file").onchange(file);
+	var fs = require('fs');
+ 
+	var contents = fs.readFileSync(file, 'utf8');
+	console.log(contents);
 
 
 }
@@ -608,13 +609,9 @@ function setEventListeners(){
 	
 	// http://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line
 	
-	document.getElementById("obj-file").onchange = function(file){
-		
-		console.log("file:", file);
+	document.getElementById("obj-file").onchange = function(){
 
-		if (file.length < 1){
-			file = this.files[0];
-		}
+		var file = this.files[0];
 		
 		var reader = new FileReader();
 		
@@ -764,5 +761,4 @@ function runWebGL() {
 
 	outputInfos();
 }
-
 

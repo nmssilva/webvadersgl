@@ -1,0 +1,8 @@
+{
+  "name": "invaders-webgl",
+  "version": "0.0.1",
+  "description": "Invaders WebGL",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
