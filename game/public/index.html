@@ -7,31 +7,31 @@
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 <script id="shader-vs" type="x-shader/x-vertex">
-	
+
     attribute vec3 aVertexPosition;
 
     attribute vec3 aVertexColor;
-    
+
     uniform mat4 uMVMatrix;
 
     uniform mat4 uPMatrix;
 
     varying vec4 vertexColor;
-    
+
     void main(void) {
-		
+
 		// To allow seeing the points drawn
-		
+
 		gl_PointSize = 5.0;
-		
+
 		// Just converting the (x,y,z) vertices to Homogeneous Coord.
-		
+
 		// And multiplying by the Projection and the Model-View matrix
-		
+
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-        
+
         // Converting the RGB color value to RGBA
-        
+
         vertexColor = vec4(aVertexColor, 1.0);
     }
 </script>
@@ -39,17 +39,19 @@
 <script id="shader-fs" type="x-shader/x-fragment">
 
 	precision mediump float;
-	
+
 	varying vec4 vertexColor;
-	
+
 	void main(void) {
-		
+
 		// Using the passed vertex color
-		
+
 		gl_FragColor = vertexColor;
 	}
 
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="./webgl-utils.js"></script>
 
@@ -68,17 +70,17 @@
 <body onload="runWebGL();">
 
 	<div style="text-align: center">
-		
+
 		<p>Invaders WebGL</p>
-		
+
 		<canvas id="my-canvas" style="border:1px solid #000000; background-color: #000;" width="700" height="700"></canvas>
-        
+
         <p>Read a 3D model from a <b>OBJ file</b>:
-		
+
 		<input type="file" id="obj-file" name="file">
-		
+
 		</p>
-				
+
 	</div>
 
 </body>

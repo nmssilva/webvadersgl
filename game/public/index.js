@@ -1,5 +1,12 @@
 var gl = null; // WebGL context
 
+var iii;
+
+var rows = ['/player','/invader1','/invader2',
+                '/invader3','/boss'];
+
+var invaders = [];
+
 var shaderProgram = null;
 
 var triangleVertexPositionBuffer = null;
@@ -143,9 +150,7 @@ var colors = [
 
 // Handling the Vertex and the Color Buffers
 
-function initBuffers() {	
-	
-	
+function initBuffers(){
 
 	// Coordinates
 		
@@ -467,12 +472,18 @@ function drawScene() {
 	mvMatrix = translationMatrix( 0, 0, globalTz );
 	
 	// Instantianting the current model
-		
-	drawModel( angleXX, angleYY, angleZZ, 
-	           sx, sy, sz,
-	           tx, ty, tz,
-	           mvMatrix,
-	           primitiveType );
+    for (iii = 0; iii < rows.length; iii++){
+        var invader = invaders[iii];
+        parsingobj(invader);
+        for (var j = 0; j < 10; j++) {
+            drawModel(angleXX, angleYY, angleZZ,
+                sx, sy, sz,
+                -j*0.1, iii*0.1, 0,
+                mvMatrix,
+                primitiveType);
+        }
+    }
+
 }
 
 //----------------------------------------------------------------------------
@@ -565,33 +576,92 @@ function outputInfos(){
 
 //-----------------------------
 
-function initaliens(){
+function readOBJ(file) {
 
-	var rows = ['invader3.obj','invader2.obj','invader2.obj',
-				'invader1.obj','invader1.obj'];
 
-	for (var i = 0, len = rows.length; i < len; i++) {
-		for (var j = 0; j < 10; j++) {
-
-			// create right offseted alien and push to alien
-			// array
-
-			console.log(rows[i]);
-			//readOBJ(rows[i]);
-
-	
-		}
-	}
 
 }
 
-function readOBJ(file){
+function parsingobj(data) {
 
-	var fs = require('fs');
- 
-	var contents = fs.readFileSync(file, 'utf8');
-	console.log(contents);
+    var lines = data.split('\n');
 
+    // The new vertices
+
+    var newVertices = [];
+
+    // The new normal vectors
+
+    var newNormals = [];
+
+    // Check every line and store
+
+    for(var line = 0; line < lines.length; line++){
+
+        // The tokens/values in each line
+
+        // Separation between tokens is 1 or mode whitespaces
+
+        var tokens = lines[line].split(/\s\s*/);
+
+        // Array of tokens; each token is a string
+
+        if( tokens[0] == "v" )
+        {
+            // For every vertex we have 3 floating point values
+
+            for( j = 1; j < 4; j++ ) {
+
+                newVertices.push( parseFloat( tokens[ j ] ) );
+            }
+        }
+
+        if( tokens[0] == "vn" )
+        {
+            // For every normal we have 3 floating point values
+
+            for( j = 1; j < 4; j++ ) {
+
+                newNormals.push( parseFloat( tokens[ j ] ) );
+            }
+        }
+    }
+
+    // Assigning to the current model
+
+    vertices = newVertices.slice();
+
+    normals = newNormals.slice();
+
+    // Checking to see if the normals are defined on the file
+
+    if( normals.length == 0 )
+    {
+        computeVertexNormals( vertices, normals );
+    }
+
+    // To render the model just read
+
+    drawModel(angleXX,angleYY,angleZZ,sx,sy,sz,tx,ty,tz,mat4(),gl.TRIANGLES);
+
+    // RESET the transformations - NEED AUXILIARY FUNCTION !!
+
+    tx = ty = tz = 0.0;
+
+    angleXX = angleYY = angleZZ = 0.0;
+
+    sx = sy = sz = 0.7;
+
+}
+
+function invaderarrayfill( ) {
+
+    for (var i = 0; i<rows.length;i++){
+        var file = rows[i];
+        $.get(file, function( data ) {
+            invaders[i]=data;
+        });
+    }
 
 }
 
@@ -608,10 +678,13 @@ function setEventListeners(){
 	// Adapted from:
 	
 	// http://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line
-	
-	document.getElementById("obj-file").onchange = function(){
 
-		var file = this.files[0];
+
+
+
+	document.getElementById("obj-file").onchange = function(file){
+
+        var file = this.files[0];
 		
 		var reader = new FileReader();
 		
@@ -679,7 +752,7 @@ function setEventListeners(){
 						
 			// To render the model just read
 		
-			initBuffers();
+			//initBuffers();
 
 			// RESET the transformations - NEED AUXILIARY FUNCTION !!
 			
@@ -744,7 +817,9 @@ function initWebGL( canvas ) {
 //----------------------------------------------------------------------------
 
 function runWebGL() {
-	
+
+    invaderarrayfill();
+    console.log(invaders[0]);
 	var canvas = document.getElementById("my-canvas");
 	
 	initWebGL( canvas );
@@ -755,9 +830,7 @@ function runWebGL() {
 	
 	initBuffers();
 	
-	tick();		// NEW --- A timer controls the rendering / animation    
-
-	initaliens();
+	tick();		// NEW --- A timer controls the rendering / animation
 
 	outputInfos();
 }
