@@ -24,8 +24,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="824" column="12" lean-forward="false" selection-start-line="824" selection-start-column="12" selection-end-line="824" selection-end-column="12" />
+            <state relative-caret-position="647">
+              <caret line="503" column="16" lean-forward="false" selection-start-line="503" selection-start-column="16" selection-end-line="503" selection-end-column="16" />
               <folding>
                 <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
               </folding>
@@ -46,8 +46,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="53" column="88" lean-forward="true" selection-start-line="53" selection-start-column="88" selection-end-line="53" selection-end-column="88" />
+            <state relative-caret-position="527">
+              <caret line="69" column="14" lean-forward="false" selection-start-line="69" selection-start-column="14" selection-end-line="69" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -66,8 +66,8 @@
       <list>
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/index.js" />
       </list>
     </option>
@@ -229,12 +229,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1479152576277</updated>
-      <workItem from="1479152577540" duration="19744000" />
+      <workItem from="1479152577540" duration="22241000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19744000" />
+    <option name="totallyTimeSpent" value="22241000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -338,14 +338,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="53" column="88" lean-forward="true" selection-start-line="53" selection-start-column="88" selection-end-line="53" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -354,10 +346,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="69" column="14" lean-forward="false" selection-start-line="69" selection-start-column="14" selection-end-line="69" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="824" column="12" lean-forward="false" selection-start-line="824" selection-start-column="12" selection-end-line="824" selection-end-column="12" />
+        <state relative-caret-position="647">
+          <caret line="503" column="16" lean-forward="false" selection-start-line="503" selection-start-column="16" selection-end-line="503" selection-end-column="16" />
           <folding>
             <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
           </folding>

@@ -470,19 +470,41 @@ function drawScene() {
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE
 	
 	mvMatrix = translationMatrix( 0, 0, globalTz );
-	
+
+
 	// Instantianting the current model
+
+    //INVADERS GRID
     for (iii = 0; iii < rows.length; iii++){
-        var invader = invaders[iii];
+        var invindex = [1,1,2,2,3];
+        var invader = invaders[invindex[iii]];
         parsingobj(invader);
-        for (var j = 0; j < 10; j++) {
+        for (var j = 0; j < 15; j++) {
             drawModel(angleXX, angleYY, angleZZ,
                 sx, sy, sz,
-                -j*0.1, iii*0.1, 0,
+                j*0.12-0.85, iii*0.11+0.2, 0,
                 mvMatrix,
                 primitiveType);
+            console.log("infinite","i=",iii," j=", j);
         }
     }
+
+    //BOSS
+    parsingobj(invaders[4]);
+    drawModel(angleXX, angleYY, angleZZ,
+        sx, sy, sz,
+        0, 0.8, 0,
+        mvMatrix,
+        primitiveType);
+
+    //PLAYER
+    parsingobj(invaders[0]);
+    drawModel(angleXX, angleYY, angleZZ,
+        sx, sy, sz,
+        0, -0.85, 0,
+        mvMatrix,
+        primitiveType);
+
 
 }
 
@@ -659,7 +681,8 @@ function invaderarrayfill( ) {
     for (var i = 0; i<rows.length;i++){
         var file = rows[i];
         $.get(file, function( data ) {
-            invaders[i]=data;
+            invaders.push(data);
+            console.log(data);
         });
     }
 
@@ -819,7 +842,7 @@ function initWebGL( canvas ) {
 function runWebGL() {
 
     invaderarrayfill();
-    console.log(invaders[0]);
+
 	var canvas = document.getElementById("my-canvas");
 	
 	initWebGL( canvas );
