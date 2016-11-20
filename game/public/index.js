@@ -7,9 +7,16 @@ var pause = false;
 var gameover = true;
 
 var rows = ['/player','/invader1','/invader2',
-                '/invader3','/boss'];
+                '/invader3','/boss','/cubo'];
 
 var invaders = [];
+
+var invader1 = [];
+var invader2 = [];
+var invader3 = [];
+var boss = [];
+var player = [];
+var bullet = [];
 
 var shaderProgram = null;
 
@@ -490,9 +497,10 @@ function drawScene() {
 	// Instantianting the current model
 
     //INVADERS GRID
-    for (iii = 0; iii < rows.length; iii++){
+    for (iii = 0; iii < 5; iii++){
         var invindex = [1,1,2,2,3];
         var invader = invaders[invindex[iii]];
+
         parsingobj(invader);
         for (var j = 0; j < 15; j++) {
             drawModel(angleXX, angleYY, angleZZ,
@@ -504,7 +512,7 @@ function drawScene() {
     }
 
     //BOSS
-    parsingobj(invaders[4]);
+    parsingobj(invaders[5]);
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
         tboss, 0.8-tdown, 0,
@@ -589,7 +597,7 @@ function animate() {
 		}
 	}
 
-    if (0.11+0.2-tdown < -0.70){
+    if (0.11+0.2-tdown < -0.65){
         gameover = true;
         document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
     }
