@@ -29,7 +29,7 @@ app.get('/invader3', function(req, res){
 });
 
 app.get('/cubo', function(req, res){
-    res.sendFile(__dirname + '/public/cubo.obj');
+    res.sendFile(__dirname + '/public/cuboGouraud.OBJ');
 });
 
 http.listen(3000, function(){
