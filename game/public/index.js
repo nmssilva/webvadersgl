@@ -591,7 +591,7 @@ function animate() {
 
     if (0.11+0.2-tdown < -0.70){
         gameover = true;
-        document.getElementById('myLink').innerHTML = "Game Over <br> Press SPACEBAR for new game";
+        document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
     }
 
 	lastTime = timeNow;
@@ -747,13 +747,13 @@ function setEventListeners(){
                 if (!pause && !gameover) { // shoot
                     console.log("SHOOT");
                 }
-                if(gameover){ // restart game
+                if (gameover) { // restart game
 
                     tdown = 0.0;
                     tboss = -1.3;
                     tplayer = 0.0;
                     level = 1;
-                    document.getElementById('myLink').innerHTML = "Controls: <br> Move: Arrows or A/D <br> Shoot: SPACEBAR <br> Pause: Shift + P";
+                    document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
 
                     gameover = false;
 
@@ -762,25 +762,14 @@ function setEventListeners(){
 
             //pause
             case 80 : // P
-                if(!gameover) {
+                if (!gameover) {
                     pause = !pause;
-                    if(pause) document.getElementById('myLink').innerHTML = "Game Paused - Press Shift + P to resume";
-                    else document.getElementById('myLink').innerHTML = "Controls: <br> Move: Arrows or A/D <br> Shoot: SPACEBAR <br> Pause: Shift + P";
+                    if (pause) document.getElementById('myLink').innerHTML = "Game Paused";
+                    else document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
                     break;
                 }
-
         }
-
-
     });
-
-
-}
-
-window.onload = function() {
-    //when the document is finished loading, replace everything
-    //between the <a ...> </a> tags with the value of splitText
-    document.getElementById("myLink").innerHTML="Press SPACEBAR to begin!";
 }
 
 //----------------------------------------------------------------------------

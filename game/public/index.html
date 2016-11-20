@@ -7,6 +7,22 @@
         font-family: ARCADE;
         src: url(ARCADECLASSIC.TTF);
     }
+
+    #contentBox {
+        margin: 0 auto;
+        width: 700px;
+    }
+
+    #contentBox .column {
+        float: left;
+        margin: 0;
+        width: 50%;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
 </style>
 
 <title>Invaders WebGL</title>
@@ -83,9 +99,23 @@
 		<canvas id="my-canvas" style="border:1px solid #222222; background-color: #000;" width="700" height="700"></canvas>
         <br>
 
-        <a id="myLink" style="color: #ffffff; font-family: ARCADE; font-size: 32px;"></a>
-
-        <br><br>
+        <a id="myLink" style="color: #ffffff; font-family: ARCADE; font-size: 32px;">Press SPACEBAR to begin!</a>
+        <div id="contentBox">
+            <div class="column">
+                <p  style="text-align: left; color: #ffffff; font-family: ARCADE; font-size: 32px;">
+                    Controls:  <br>
+                    Move: Arrows or A/D <br>
+                    Shoot: Spacebar <br>
+                    Pause: Shift + P
+                </p>
+            </div>
+            <div class="column">
+                <p id="right" style=" text-align: right; color: #ffffff; font-family: ARCADE; font-size: 32px;">
+                    Level: 1 <br>
+                    Points: 0
+                </p>
+            </div>
+        </div>
 
 
 
