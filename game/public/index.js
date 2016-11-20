@@ -37,6 +37,8 @@ var tboss = -1.3;
 
 var level = 1;
 
+var tplayer = 0.0;
+
 // The rotation angles in degrees
 
 var angleXX = 0.0;
@@ -508,7 +510,7 @@ function drawScene() {
     parsingobj(invaders[0]);
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
-        0, -0.85, 0,
+        tplayer, -0.85, 0,
         mvMatrix,
         primitiveType);
 
@@ -568,6 +570,9 @@ function animate() {
 
         tdown += level*0.01;
 		tboss += 0.2;
+		if (tboss > 1.3){
+		    tboss = - 1.3;
+        }
 
 		// Rotating the light sources
 	
@@ -689,7 +694,46 @@ function invaderarrayfill( ) {
 
 function setEventListeners(){
 
-	
+    document.addEventListener("keydown", function(event) {
+
+        var key = event.keyCode; // ASCII
+
+        switch (key) {
+            //left
+            case 37 : //left arrow
+            case 65 : // A
+                if(tplayer < -0.85){
+                    break;
+                }
+                tplayer -= 0.01;
+                break;
+
+            //right
+            case 39 : //right arrow
+            case 68 : // D
+                if(tplayer > 0.85){
+                    break;
+                }
+                tplayer += 0.01;
+                break;
+        }
+    });
+
+    document.addEventListener("keypress", function(event) {
+
+        var key = event.keyCode; // ASCII
+
+        switch (key) {
+            //shoot
+            case 32 : // space bar
+                console.log("SHOOT");
+                break;
+        }
+
+
+    });
+
+
 }
 
 //----------------------------------------------------------------------------

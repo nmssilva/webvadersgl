@@ -24,8 +24,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="568" column="27" lean-forward="false" selection-start-line="568" selection-start-column="27" selection-end-line="568" selection-end-column="27" />
+            <state relative-caret-position="356">
+              <caret line="727" column="34" lean-forward="false" selection-start-line="727" selection-start-column="34" selection-end-line="727" selection-end-column="34" />
               <folding>
                 <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
               </folding>
@@ -244,12 +244,12 @@
       <option name="presentableId" value="Default" />
       <updated>1479152576277</updated>
       <workItem from="1479152577540" duration="22527000" />
-      <workItem from="1479658770020" duration="801000" />
+      <workItem from="1479658770020" duration="2513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23328000" />
+    <option name="totallyTimeSpent" value="25040000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -360,14 +360,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="3" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -379,10 +371,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="3" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="568" column="27" lean-forward="false" selection-start-line="568" selection-start-column="27" selection-end-line="568" selection-end-column="27" />
+        <state relative-caret-position="356">
+          <caret line="727" column="34" lean-forward="false" selection-start-line="727" selection-start-column="34" selection-end-line="727" selection-end-column="34" />
           <folding>
             <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
           </folding>
