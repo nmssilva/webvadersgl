@@ -28,6 +28,10 @@ app.get('/invader3', function(req, res){
     res.sendFile(__dirname + '/public/invader3.obj');
 });
 
+app.get('/cubo', function(req, res){
+    res.sendFile(__dirname + '/public/cubo.obj');
+});
+
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });

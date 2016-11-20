@@ -7,7 +7,7 @@ var pause = false;
 var gameover = false;
 
 var rows = ['/player','/invader1','/invader2',
-                '/invader3','/boss'];
+                '/invader3','/boss','/cubo'];
 
 var invaders = [];
 
