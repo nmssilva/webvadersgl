@@ -4,10 +4,10 @@ var iii;
 
 var pause = false;
 
-var gameover = false;
+var gameover = true;
 
 var rows = ['/player','/invader1','/invader2',
-                '/invader3','/boss','/cubo'];
+                '/invader3','/boss'];
 
 var invaders = [];
 
@@ -750,6 +750,7 @@ function setEventListeners(){
                     tboss = -1.3;
                     tplayer = 0.0;
                     level = 1;
+                    document.getElementById('myLink').innerHTML = "Controls: <br> Move: Arrows or A/D <br> Shoot: SPACEBAR <br> Pause: Shift + P";
 
                     gameover = false;
 
@@ -760,6 +761,8 @@ function setEventListeners(){
             case 80 : // P
                 if(!gameover) {
                     pause = !pause;
+                    if(pause) document.getElementById('myLink').innerHTML = "Game Paused - Press Shift + P to resume";
+                    else document.getElementById('myLink').innerHTML = "Controls: <br> Move: Arrows or A/D <br> Shoot: SPACEBAR <br> Pause: Shift + P";
                     break;
                 }
 
@@ -769,6 +772,12 @@ function setEventListeners(){
     });
 
 
+}
+
+window.onload = function() {
+    //when the document is finished loading, replace everything
+    //between the <a ...> </a> tags with the value of splitText
+    document.getElementById("myLink").innerHTML="Press SPACEBAR to begin!";
 }
 
 //----------------------------------------------------------------------------

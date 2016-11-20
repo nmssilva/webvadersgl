@@ -2,6 +2,13 @@
 
 <head>
 
+<style>
+    @font-face {
+        font-family: ARCADE;
+        src: url(ARCADECLASSIC.TTF);
+    }
+</style>
+
 <title>Invaders WebGL</title>
 
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
@@ -67,13 +74,20 @@
 
 </head>
 
-<body onload="runWebGL();">
+<body bgcolor="#000000" onload="runWebGL();">
 
 	<div style="text-align: center">
 
-		<p>Invaders WebGL</p>
+		<a style="color: #ffffff; font-family: ARCADE; font-size: 32px;">Invaders WebGL</a> <br>
 
-		<canvas id="my-canvas" style="border:1px solid #000000; background-color: #000;" width="700" height="700"></canvas>
+		<canvas id="my-canvas" style="border:1px solid #222222; background-color: #000;" width="700" height="700"></canvas>
+        <br>
+
+        <a id="myLink" style="color: #ffffff; font-family: ARCADE; font-size: 32px;"></a>
+
+        <br><br>
+
+
 
 	</div>
 
