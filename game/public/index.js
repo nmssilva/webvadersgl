@@ -2,6 +2,10 @@ var gl = null; // WebGL context
 
 var iii;
 
+var pause = false;
+
+var gameover = false;
+
 var rows = ['/player','/invader1','/invader2',
                 '/invader3','/boss'];
 
@@ -38,6 +42,7 @@ var tboss = -1.3;
 var level = 1;
 
 var tplayer = 0.0;
+
 
 // The rotation angles in degrees
 
@@ -593,12 +598,16 @@ function animate() {
 // Timer
 
 function tick() {
-	
-	requestAnimFrame(tick);
-	
-	drawScene();
-	
-	animate();
+
+
+
+        requestAnimFrame(tick);
+
+        drawScene();
+    if (!pause && !gameover){
+        animate();
+    }
+
 }
 
 
@@ -697,26 +706,30 @@ function setEventListeners(){
     document.addEventListener("keydown", function(event) {
 
         var key = event.keyCode; // ASCII
+        if (!pause && !gameover){
 
-        switch (key) {
-            //left
-            case 37 : //left arrow
-            case 65 : // A
-                if(tplayer < -0.85){
+            switch (key) {
+                //left
+                case 37 : //left arrow
+                case 65 : // A
+                    if(tplayer < -0.85){
+                        break;
+                    }
+                    tplayer -= 0.01;
                     break;
-                }
-                tplayer -= 0.01;
-                break;
 
-            //right
-            case 39 : //right arrow
-            case 68 : // D
-                if(tplayer > 0.85){
+                //right
+                case 39 : //right arrow
+                case 68 : // D
+                    if(tplayer > 0.85){
+                        break;
+                    }
+                    tplayer += 0.01;
                     break;
-                }
-                tplayer += 0.01;
-                break;
+            }
+
         }
+
     });
 
     document.addEventListener("keypress", function(event) {
@@ -726,7 +739,16 @@ function setEventListeners(){
         switch (key) {
             //shoot
             case 32 : // space bar
-                console.log("SHOOT");
+                if (!pause && !gameover) {
+                    console.log("SHOOT");
+                }
+                break;
+
+            //pause
+            case 80 : // P
+                pause = !pause;
+
+                console.log("pause",pause);
                 break;
         }
 

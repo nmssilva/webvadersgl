@@ -24,8 +24,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="727" column="34" lean-forward="false" selection-start-line="727" selection-start-column="34" selection-end-line="727" selection-end-column="34" />
+            <state relative-caret-position="473">
+              <caret line="743" column="17" lean-forward="false" selection-start-line="743" selection-start-column="17" selection-end-line="743" selection-end-column="17" />
               <folding>
                 <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
               </folding>
@@ -244,12 +244,12 @@
       <option name="presentableId" value="Default" />
       <updated>1479152576277</updated>
       <workItem from="1479152577540" duration="22527000" />
-      <workItem from="1479658770020" duration="2513000" />
+      <workItem from="1479658770020" duration="3492000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25040000" />
+    <option name="totallyTimeSpent" value="26019000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -381,8 +381,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="727" column="34" lean-forward="false" selection-start-line="727" selection-start-column="34" selection-end-line="727" selection-end-column="34" />
+        <state relative-caret-position="473">
+          <caret line="743" column="17" lean-forward="false" selection-start-line="743" selection-start-column="17" selection-end-line="743" selection-end-column="17" />
           <folding>
             <element signature="n#!!block;n#computeIllumination#0" expanded="false" />
           </folding>
