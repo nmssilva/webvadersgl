@@ -23,11 +23,19 @@ var globalTz = 0.0;
 
 // The translation vector
 
-var tx = 0.0;
+//var tx = 0.0;
 
-var ty = 0.0;
+//var ty = 0.0;
 
-var tz = 0.0;
+//var tz = 0.0;
+
+// Position vectors
+
+var tdown = 0.0;
+
+var tboss = -1.3;
+
+var level = 1;
 
 // The rotation angles in degrees
 
@@ -482,10 +490,9 @@ function drawScene() {
         for (var j = 0; j < 15; j++) {
             drawModel(angleXX, angleYY, angleZZ,
                 sx, sy, sz,
-                j*0.12-0.85, iii*0.11+0.2, 0,
+                j*0.12-0.85, iii*0.11+0.2-tdown, 0,
                 mvMatrix,
                 primitiveType);
-            console.log("infinite","i=",iii," j=", j);
         }
     }
 
@@ -493,7 +500,7 @@ function drawScene() {
     parsingobj(invaders[4]);
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
-        0, 0.8, 0,
+        tboss, 0.8-tdown, 0,
         mvMatrix,
         primitiveType);
 
@@ -557,6 +564,11 @@ function animate() {
 			angleZZ += rotationZZ_DIR * rotationZZ_SPEED * (90 * elapsed) / 1000.0;
 	    }
 
+	    // position
+
+        tdown += level*0.01;
+		tboss += 0.2;
+
 		// Rotating the light sources
 	
 		if( lightSources[0].isRotYYOn() ) {
@@ -597,12 +609,6 @@ function outputInfos(){
 }
 
 //-----------------------------
-
-function readOBJ(file) {
-
-
-
-}
 
 function parsingobj(data) {
 
@@ -663,16 +669,8 @@ function parsingobj(data) {
     }
 
     // To render the model just read
-
-    drawModel(angleXX,angleYY,angleZZ,sx,sy,sz,tx,ty,tz,mat4(),gl.TRIANGLES);
-
-    // RESET the transformations - NEED AUXILIARY FUNCTION !!
-
-    tx = ty = tz = 0.0;
-
-    angleXX = angleYY = angleZZ = 0.0;
-
-    sx = sy = sz = 0.7;
+    // TODO: drawmodel maybe useful...
+    //drawModel(angleXX,angleYY,angleZZ,sx,sy,sz,tx,ty,tz,mat4(),gl.TRIANGLES);
 
 }
 
@@ -682,7 +680,6 @@ function invaderarrayfill( ) {
         var file = rows[i];
         $.get(file, function( data ) {
             invaders.push(data);
-            console.log(data);
         });
     }
 
