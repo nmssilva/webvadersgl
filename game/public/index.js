@@ -383,27 +383,27 @@ function computeIllumination( mvMatrix ) {
 	        
 	        // Avoid exceeding 1.0
 	        
-			if( colors[vertIndex] > 0.5 ) {
+			if( colors[vertIndex] > 1.0 ) {
 				
-				colors[vertIndex] = 0.5;
+				colors[vertIndex] = 1.0;
 			}
 	        
 	        // Avoid exceeding 1.0
 	        
 			colors[vertIndex + 1] += tempG;
 			
-			if( colors[vertIndex + 1] > 0.1 ) {
+			if( colors[vertIndex + 1] > 20/255 ) {
 				
-				colors[vertIndex + 1] = 0.1;
+				colors[vertIndex + 1] = 20/255;
 			}
 			
 			colors[vertIndex + 2] += tempB;
 	        
 	        // Avoid exceeding 1.0
 	        
-			if( colors[vertIndex + 2] > 1.0 ) {
+			if( colors[vertIndex + 2] > 147/255 ) {
 				
-				colors[vertIndex + 2] = 1.0;
+				colors[vertIndex + 2] = 147/255;
 			}
 	    }	
 	}
