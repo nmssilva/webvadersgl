@@ -11,3 +11,4 @@ To do list:
 Bonus stuff:
 - different colors for different invaders
 - aditional animation when moving the player (rotation on ZZ axis)
+- High score table below
