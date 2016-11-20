@@ -588,7 +588,9 @@ function animate() {
 			lightSources[0].setRotAngleYY( angle );
 		}
 	}
-	
+
+    if (iii*0.11+0.2-tdown < -0.75) gameover = true;
+
 	lastTime = timeNow;
 }
 
@@ -599,11 +601,10 @@ function animate() {
 
 function tick() {
 
-
-
         requestAnimFrame(tick);
 
         drawScene();
+
     if (!pause && !gameover){
         animate();
     }
@@ -737,19 +738,31 @@ function setEventListeners(){
         var key = event.keyCode; // ASCII
 
         switch (key) {
-            //shoot
+
+            //shoot or restart
             case 32 : // space bar
-                if (!pause && !gameover) {
+                if (!pause && !gameover) { // shoot
                     console.log("SHOOT");
+                }
+                if(gameover){ // restart game
+
+                    tdown = 0.0;
+                    tboss = -1.3;
+                    tplayer = 0.0;
+                    level = 1;
+
+                    gameover = false;
+
                 }
                 break;
 
             //pause
             case 80 : // P
-                pause = !pause;
+                if(!gameover) {
+                    pause = !pause;
+                    break;
+                }
 
-                console.log("pause",pause);
-                break;
         }
 
 
