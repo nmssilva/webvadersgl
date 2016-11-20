@@ -574,7 +574,7 @@ function animate() {
 	    // position
 
         tdown += level*0.01;
-		tboss += 0.2;
+		tboss += (level+1)/2*0.2;
 		if (tboss > 1.3){
 		    tboss = - 1.3;
         }
@@ -589,7 +589,10 @@ function animate() {
 		}
 	}
 
-    if (iii*0.11+0.2-tdown < -0.75) gameover = true;
+    if (0.11+0.2-tdown < -0.70){
+        gameover = true;
+        document.getElementById('myLink').innerHTML = "Game Over <br> Press SPACEBAR for new game";
+    }
 
 	lastTime = timeNow;
 }
