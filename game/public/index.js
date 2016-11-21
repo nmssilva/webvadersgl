@@ -282,11 +282,11 @@ function computeIllumination( mvMatrix ) {
 			
 	        // INITIALIZE EACH COMPONENT, with the constant terms
 	
-		    var ambientTerm = vec3();
+		    var ambientTerm = [0,0,0];
 		
-		    var diffuseTerm = vec3();
+		    var diffuseTerm = [0,0,0];
 		
-		    var specularTerm = vec3();
+		    var specularTerm = [0,0,0];
 		
 		    // For the current light source
 		
@@ -297,8 +297,9 @@ function computeIllumination( mvMatrix ) {
 		    pos_Light_Source = lightSources[l].getPosition();
 		    
 		    // Animating the light source, if defined
-		    
-		    var lightSourceMatrix = mat4();
+
+            var lightSourceMatrix = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];// mat4();
+            lightSourceMatrix.matrix = true;
 		    
 		    // COMPLETE THE CODE FOR THE OTHER ROTATION AXES
 		    
@@ -322,7 +323,7 @@ function computeIllumination( mvMatrix ) {
 	    
 	        // DIFFUSE ILLUMINATION
 	        
-	        var vectorL = vec4();
+	        var vectorL = [0,0,0,1];
 	
 	        if( pos_Light_Source[3] == 0.0 )
 	        {
@@ -467,8 +468,9 @@ function drawModel( angleXX, angleYY, angleZZ,
 function drawScene() {
 	
 	var pMatrix;
-	
-	var mvMatrix = mat4();
+
+	var mvMatrix = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];// mat4();
+    mvMatrix.matrix = true;
 	
 	// Clearing the frame-buffer and the depth-buffer
 	
@@ -512,7 +514,7 @@ function drawScene() {
     }
 
     //BOSS
-    parsingobj(invaders[5]);
+    parsingobj(invaders[4]);
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
         tboss, 0.8-tdown, 0,
@@ -597,7 +599,7 @@ function animate() {
 		}
 	}
 
-    if (0.11+0.2-tdown < -0.65){
+    if (0.11+0.2-tdown < -0.63){
         gameover = true;
         document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
     }
