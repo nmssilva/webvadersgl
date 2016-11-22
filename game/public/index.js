@@ -11,13 +11,6 @@ var rows = ['/player','/invader1','/invader2',
 
 var invaders = [];
 
-var invader1 = [];
-var invader2 = [];
-var invader3 = [];
-var boss = [];
-var player = [];
-var bullet = [];
-
 var shaderProgram = null;
 
 var triangleVertexPositionBuffer = null;
@@ -514,7 +507,7 @@ function drawScene() {
     }
 
     //BOSS
-    parsingobj(invaders[4]);
+    parsingobj(invaders[5]);
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
         tboss, 0.8-tdown, 0,
@@ -523,7 +516,7 @@ function drawScene() {
 
     //PLAYER
     parsingobj(invaders[0]);
-    drawModel(angleXX, angleYY, angleZZ,
+    drawModel(0.0, 0.0, angleZZ,
         sx, sy, sz,
         tplayer, -0.85, 0,
         mvMatrix,
