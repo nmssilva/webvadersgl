@@ -518,7 +518,7 @@ function drawScene() {
         }
 
         for(var i=0; i < colors.length; i++){
-            if(i%3===0){
+            if(i%3===invindex[iii]-1){
                 colors[i]+=1;
             }
         }
@@ -537,11 +537,6 @@ function drawScene() {
     vertices = boss.slice();
     colors = boss.slice();
 
-    for(var i=0; i < colors.length; i++){
-        if(i%3===0){
-            colors[i]+=1;
-        }
-    }
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
         tboss, 0.8-tdown, 0,
@@ -615,8 +610,8 @@ function animate() {
 
 	    // position
 
-        tdown += level*0.01;
-		tboss += (level+1)/2*0.2;
+        tdown += level*0.001;
+		tboss += (level+1)/2*0.02;
 		if (tboss > 1.3){
 		    tboss = - 1.3;
         }
@@ -684,7 +679,7 @@ function setEventListeners(){
                     if(tplayer < -0.85){
                         break;
                     }
-                    tplayer -= 0.01;
+                    tplayer -= 0.1;
                     break;
 
                 //right
@@ -693,7 +688,7 @@ function setEventListeners(){
                     if(tplayer > 0.85){
                         break;
                     }
-                    tplayer += 0.01;
+                    tplayer += 0.1;
                     break;
             }
 
