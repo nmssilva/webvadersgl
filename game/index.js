@@ -536,7 +536,13 @@ function drawScene() {
 
     vertices = boss.slice();
     colors = boss.slice();
-
+    for(var i=0; i < colors.length; i++){
+        if(i%3===0){
+            colors[i]+=1;
+            colors[i+1]-=0.2;
+            colors[i+2]-=0.2;
+        }
+    }
     drawModel(angleXX, angleYY, angleZZ,
         sx, sy, sz,
         tboss, 0.8-tdown, 0,
