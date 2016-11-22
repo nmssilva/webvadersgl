@@ -539,8 +539,8 @@ function drawScene() {
     for(var i=0; i < colors.length; i++){
         if(i%3===0){
             colors[i]+=1;
-            colors[i+1]-=0.2;
-            colors[i+2]-=0.2;
+            colors[i+1]+=0.7;
+            colors[i+2]+=0.2;
         }
     }
     drawModel(angleXX, angleYY, angleZZ,
@@ -554,7 +554,7 @@ function drawScene() {
     colors = player.slice();
     for(var i=0; i < colors.length; i++){
         if(i%3===0){
-            colors[i]+=1;
+            colors[i]+=0.55;
         }
     }
     drawModel(0.0, 0.0, angleZZ,
