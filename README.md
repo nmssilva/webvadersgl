@@ -8,5 +8,4 @@ To do list:
 - game over (half done)
 
 Bonus stuff:
-- aditional animation when moving the player (rotation on ZZ axis)
 - High score table below
