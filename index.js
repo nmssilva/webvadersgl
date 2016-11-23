@@ -67,6 +67,8 @@ var alestorm = new Audio('alestorm.mp3');
 var gameoveraudio = new Audio('gameover.wav');
 var pauseaudio = new Audio('pause.wav');
 
+var muted = false;
+
 
 // The rotation angles in degrees
 
@@ -672,14 +674,16 @@ function animate() {
     }
 
     if(rowskilled == 5){
-        newlevelaudio.play();
+        if(!muted)
+            newlevelaudio.play();
 	    resetlevel();
 	    level += 1;
     }
 
     if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
         gameover = true;
-        gameoveraudio.play();
+        if(!muted)
+            gameoveraudio.play();
         alestorm.pause();
         alestorm.currentTime = 0;
         document.getElementById('myLink').innerHTML = "Game Over - Press R to restart";
@@ -696,7 +700,8 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -707,7 +712,8 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -718,7 +724,8 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -729,7 +736,8 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -740,7 +748,8 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -751,7 +760,8 @@ function killinvaders(){
         if ((txbullet > (tboss+tdboss)-0.17) &&(txbullet < (tboss+tdboss)+0.17)) {
             tdboss = 3;
             points += 100;
-            killaudio.play();
+            if(!muted)
+                killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -767,6 +777,22 @@ function resetlevel() {
     txbullet = 1.3;
     invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+}
+
+function mute(){
+    muted = !muted;
+    var src = document.getElementById('muteimg').src.split('/');
+    src = src[src.length-1];
+    if(src == 'mute.png'){
+        src = 'nomute.png';
+        alestorm.play();
+    }
+    else{
+        src = 'mute.png';
+        alestorm.pause();
+    }
+    document.getElementById('muteimg').src = src;
+
 }
 
 //----------------------------------------------------------------------------
@@ -840,7 +866,8 @@ function setEventListeners(){
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.75;
                     txbullet = tplayer;
-                    shootaudio.play();
+                    if(!muted)
+                        shootaudio.play();
                     bulletready = false;
                 }
 
@@ -850,8 +877,8 @@ function setEventListeners(){
 
                     resetlevel();
 
-
-                    alestorm.play();
+                    if(!muted)
+                        alestorm.play();
 
                     level = 1;
                     points = 0;
@@ -869,11 +896,13 @@ function setEventListeners(){
                 if (!gameover) {
                     pause = !pause;
                     if(pause){
-                        pauseaudio.play();
+                        if(!muted)
+                            pauseaudio.play();
                         alestorm.pause();
                     }
                     else{
-                        alestorm.play();
+                        if(!muted)
+                            alestorm.play();
                         pauseaudio.pause();
                         pauseaudio.currentTime = 0;
                     }
