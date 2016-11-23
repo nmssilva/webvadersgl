@@ -480,6 +480,7 @@ function drawScene() {
     //INVADERS GRID
     for (iii = 0; iii < 5; iii++){
         var invindex = [1,1,2,2,3];
+
         switch(invindex[iii]){
             case 1:
                 vertices = invader1.slice();
@@ -610,7 +611,7 @@ function animate() {
 
 	    // position
 
-        tdown += level*0.001;
+        tdown += level*0.0005;
 		tboss += (level+1)/2*0.02;
 		if (tboss > 1.3){
 		    tboss = - 1.3;
@@ -623,15 +624,8 @@ function animate() {
 		    bulletready = true;
         }
 
-        if(tybullet > (-tdown+0.2)-0.05 && tybullet < (-tdown+0.2)+0.05){ //in range first row
-            var y=0; //1st row
-            var x = parseInt(-txbullet/-0.12)+7;
-            console.log("here");
-            invpos[y][x] = 3;
-            points += 10;
-            document.getElementById('right').innerHTML = "Level: "+level+" <br> Points: "+points;
-            tybullet = 1.3;
-        }
+        killinvaders();
+
 
 
 		// Rotating the light sources
@@ -644,16 +638,99 @@ function animate() {
 		}
 	}
 
-    if (0.11+0.2-tdown < -0.63){
+	var rowskilled = 0;
+
+	if (!invpos[0].includes(0)){
+	    rowskilled = 1;
+        if (!invpos[1].includes(0)){
+            rowskilled = 2;
+            if (!invpos[2].includes(0)){  // checking how many rows got eliminated
+                rowskilled = 3;
+                if (!invpos[3].includes(0)){
+                    rowskilled = 4;
+                    if (!invpos[4].includes(0)){
+                        rowskilled = 5;
+                    }
+                }
+            }
+        }
+    }
+
+    if(rowskilled == 5){
+	    resetlevel();
+	    level += 1;
+    }
+
+    if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
         gameover = true;
         document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
     }
 
-
-
 	lastTime = timeNow;
 }
 
+function killinvaders(){
+
+    var x = parseInt(-txbullet/-0.12)+7; // x pos of invader
+    var y = 0; //1st row
+    if(tybullet > (-tdown+0.2)-0.05 && tybullet < (-tdown+0.2)+0.05) { //in range first row
+        if (invpos[y][x] === 0) {
+            invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
+    if(tybullet > (-tdown+0.2)-0.05+0.11 && tybullet < (-tdown+0.2)+0.05+0.11) {
+        y = 1; //2nd row
+        if (invpos[y][x] === 0) {
+            invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
+    if(tybullet > (-tdown+0.2)-0.05+0.22 && tybullet < (-tdown+0.2)+0.05+0.22) {
+        y = 2; //3rd row
+        if (invpos[y][x] === 0) {
+            invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
+    if(tybullet > (-tdown+0.2)-0.05+0.33 && tybullet < (-tdown+0.2)+0.05+0.33) {
+        y = 3; //4th row
+        if (invpos[y][x] === 0) {
+            invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
+    if(tybullet > (-tdown+0.2)-0.05+0.44 && tybullet < (-tdown+0.2)+0.05+0.44) {
+        y = 4; //5th row
+        if (invpos[y][x] === 0) {
+            invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
+}
+
+function resetlevel() {
+    tdown = 0.0;
+    tboss = -1.3;
+    tplayer = 0.0;
+    invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+}
 
 //----------------------------------------------------------------------------
 
@@ -731,12 +808,10 @@ function setEventListeners(){
                 }
                 if (gameover) { // restart game
 
-                    tdown = 0.0;
-                    tboss = -1.3;
-                    tplayer = 0.0;
+                    resetlevel();
+
                     level = 1;
-                    invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+                    points = 0;
 
                     document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
                     document.getElementById('right').innerHTML = "Level: 1 <br> Points: 0";
