@@ -787,27 +787,6 @@ function setEventListeners(){
                     }
                     tplayer += 0.12;
                     break;
-                //shoot or restart
-                case 32 : // space bar
-                    if (!pause && !gameover && bulletready) { // shoot
-                        tybullet = -0.8;
-                        txbullet = tplayer;
-                        bulletready = false;
-                    }
-                    if (gameover) { // restart game
-
-                        resetlevel();
-
-                        level = 1;
-                        points = 0;
-
-                        document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
-                        document.getElementById('right').innerHTML = "Level: 1 <br> Points: 0";
-
-                        gameover = false;
-
-                    }
-                    break;
             }
 
         }
@@ -820,7 +799,27 @@ function setEventListeners(){
 
         switch (key) {
 
+            //shoot or restart
+            case 32 : // space bar
+                if (!pause && !gameover && bulletready) { // shoot
+                    tybullet = -0.8;
+                    txbullet = tplayer;
+                    bulletready = false;
+                }
+                if (gameover) { // restart game
 
+                    resetlevel();
+
+                    level = 1;
+                    points = 0;
+
+                    document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
+                    document.getElementById('right').innerHTML = "Level: 1 <br> Points: 0";
+
+                    gameover = false;
+
+                }
+                break;
 
             //pause
             case 80 : // P
