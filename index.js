@@ -820,7 +820,7 @@ function setEventListeners(){
             case 32 : // space bar
             case 119 : // w
                 if (!pause && !gameover && bulletready) { // shoot
-                    tybullet = -0.73;
+                    tybullet = -0.75;
                     txbullet = tplayer;
                     bulletready = false;
                 }
