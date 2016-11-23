@@ -824,6 +824,9 @@ function setEventListeners(){
                     txbullet = tplayer;
                     bulletready = false;
                 }
+
+                break;
+            case 114:
                 if (gameover) { // restart game
 
                     resetlevel();
