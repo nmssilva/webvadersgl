@@ -431,7 +431,7 @@ function drawModel( angleXX, angleYY, angleZZ,
 	
 	// This can be done in a better way !!
 
-	//initBuffers();
+	initBuffers();
 	
 	// Drawing 
 	
