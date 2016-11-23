@@ -668,7 +668,7 @@ function animate() {
 
     if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
         gameover = true;
-        document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR or W for new game";
+        document.getElementById('myLink').innerHTML = "Game Over - Press R to restart";
     }
 
 	lastTime = timeNow;
