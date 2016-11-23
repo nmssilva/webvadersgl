@@ -668,7 +668,7 @@ function animate() {
 
     if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
         gameover = true;
-        document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
+        document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR or W for new game";
     }
 
 	lastTime = timeNow;
@@ -818,6 +818,7 @@ function setEventListeners(){
 
             //shoot or restart
             case 32 : // space bar
+            case 119 : // w
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.73;
                     txbullet = tplayer;
@@ -839,7 +840,7 @@ function setEventListeners(){
                 break;
 
             //pause
-            case 80 : // P
+            case 112 : // P
                 if (!gameover) {
                     pause = !pause;
                     if (pause) document.getElementById('myLink').innerHTML = "Game Paused";
