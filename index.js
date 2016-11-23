@@ -1,6 +1,7 @@
 var gl = null; // WebGL context
 
 var iii;
+var jjj;
 
 var pause = false;
 
@@ -46,6 +47,14 @@ var level = 1;
 
 var tplayer = 0.0;
 
+var txbullet = 0.0;
+
+var tybullet = 1.1;
+
+var bulletready = true;
+
+var invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
 
 // The rotation angles in degrees
 
@@ -119,42 +128,15 @@ var nPhong = 10;
 
 // Initial model has just ONE TRIANGLE
 
-var vertices = [
+var vertices = [];
 
-		// FRONTAL TRIANGLE
-		 
-		-0.5, -0.5,  0.5,
-		 
-		 0.5, -0.5,  0.5,
-		 
-		 0.5,  0.5,  0.5,
-];
-
-var normals = [
-
-		// FRONTAL TRIANGLE
-		 
-		 0.0,  0.0,  1.0,
-		 
-		 0.0,  0.0,  1.0,
-		 
-		 0.0,  0.0,  1.0,
-];
+var normals = [];
 
 // Initial color values just for testing!!
 
 // They are to be computed by the Phong Illumination Model
 
-var colors = [
-
-		 // FRONTAL TRIANGLE
-		 	
-		 1.00,  0.00,  0.00,
-		 
-		 1.00,  0.00,  0.00,
-		 
-		 1.00,  0.00,  0.00,
-];
+var colors = [];
 
 //----------------------------------------------------------------------------
 //
@@ -433,7 +415,7 @@ function drawModel( angleXX, angleYY, angleZZ,
 	
 	mvMatrix = mult( mvMatrix, rotationXXMatrix( - 90 ) );
 	
-	mvMatrix = mult( mvMatrix, scalingMatrix( 0.1, 0.1, 0.1 ) );
+	mvMatrix = mult( mvMatrix, scalingMatrix( sx, sy, sz ) );
 						 
 	// Passing the Model View Matrix to apply the current transformation
 	
@@ -449,7 +431,7 @@ function drawModel( angleXX, angleYY, angleZZ,
 	
 	// This can be done in a better way !!
 
-	initBuffers();
+	//initBuffers();
 	
 	// Drawing 
 	
@@ -518,10 +500,10 @@ function drawScene() {
             }
         }
 
-        for (var j = 0; j < 15; j++) {
+        for (jjj = 0; jjj < 15; jjj++) {
             drawModel(angleXX, angleYY, angleZZ,
-                sx, sy, sz,
-                j*0.12-0.85, iii*0.11+0.2-tdown, 0,
+                0.1, 0.1, 0.1,
+                jjj*0.12-0.84, iii*0.11+0.2-tdown, 0,
                 mvMatrix,
                 primitiveType);
         }
@@ -539,7 +521,7 @@ function drawScene() {
         }
     }
     drawModel(angleXX, angleYY, angleZZ,
-        sx, sy, sz,
+        0.1, 0.1, 0.1,
         tboss, 0.8-tdown, 0,
         mvMatrix,
         primitiveType);
@@ -553,8 +535,24 @@ function drawScene() {
         }
     }
     drawModel(0.0, 0.0, angleZZ,
-        sx, sy, sz,
+        0.1, 0.1, 0.1,
         tplayer, -0.85, 0,
+        mvMatrix,
+        primitiveType);
+
+    //BULLET
+    vertices = cube.slice();
+    colors = cube.slice();
+    for(var i=0; i < colors.length; i++){
+        if(i%3===0){
+            colors[i]+=0.9;
+            colors[i+1]+=0.9;
+            colors[i+2]+=0.9;
+        }
+    }
+    drawModel(0.0, angleYY, 0.0,
+        0.02, 0.02, 0.05,
+        txbullet, tybullet, 0,
         mvMatrix,
         primitiveType);
 
@@ -617,6 +615,14 @@ function animate() {
 		    tboss = - 1.3;
         }
 
+        //bullet
+        tybullet += 0.1;
+		if (tybullet > 1.1){
+		    tybullet = 1.1;
+		    bulletready = true;
+        }
+
+
 		// Rotating the light sources
 	
 		if( lightSources[0].isRotYYOn() ) {
@@ -631,6 +637,8 @@ function animate() {
         gameover = true;
         document.getElementById('myLink').innerHTML = "Game Over - Press SPACEBAR for new game";
     }
+
+
 
 	lastTime = timeNow;
 }
@@ -680,7 +688,7 @@ function setEventListeners(){
                     if(tplayer < -0.85){
                         break;
                     }
-                    tplayer -= 0.1;
+                    tplayer -= 0.12;
                     break;
 
                 //right
@@ -689,7 +697,7 @@ function setEventListeners(){
                     if(tplayer > 0.85){
                         break;
                     }
-                    tplayer += 0.1;
+                    tplayer += 0.12;
                     break;
             }
 
@@ -705,8 +713,10 @@ function setEventListeners(){
 
             //shoot or restart
             case 32 : // space bar
-                if (!pause && !gameover) { // shoot
-                    console.log("SHOOT");
+                if (!pause && !gameover && bulletready) { // shoot
+                    tybullet = -0.8;
+                    txbullet = tplayer;
+                    bulletready = false;
                 }
                 if (gameover) { // restart game
 
