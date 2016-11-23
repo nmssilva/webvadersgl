@@ -403,8 +403,9 @@ var sizeof = {
 
 function rotationXXMatrix( degrees )
 {
-	m = mat4();
-	
+	m = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    m.matrix = true;
+
 	m[1][1] = Math.cos( radians( degrees ) );
 	
 	m[1][2] = -Math.sin( radians( degrees ) );
@@ -418,7 +419,8 @@ function rotationXXMatrix( degrees )
 
 function rotationYYMatrix( degrees )
 {
-	m = mat4();
+	m = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    m.matrix = true;
 	
 	m[0][0] = Math.cos( radians( degrees ) );
 	
@@ -433,7 +435,8 @@ function rotationYYMatrix( degrees )
 
 function rotationZZMatrix( degrees )
 {
-	m = mat4();
+	m = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    m.matrix = true;
 	
 	m[0][0] = Math.cos( radians( degrees ) );
 	
@@ -448,8 +451,9 @@ function rotationZZMatrix( degrees )
 
 function scalingMatrix( sx, sy, sz )
 {
-	m = mat4();
-	
+	m = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    m.matrix = true;
+
 	m[0][0] = sx;
 	
 	m[1][1] = sy;
@@ -461,7 +465,8 @@ function scalingMatrix( sx, sy, sz )
 
 function translationMatrix( tx, ty, tz )
 {
-	m = mat4();
+	m = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    m.matrix = true;
 	
 	m[0][3] = tx;
 	
@@ -487,7 +492,8 @@ function ortho( left, right, bottom, top, near, far )
     var h = top - bottom;
     var d = far - near;
 
-    var result = mat4();
+    var result = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    result.matrix = true;
     
     result[0][0] = 2.0 / w;
     result[1][1] = 2.0 / h;
@@ -506,7 +512,8 @@ function perspective( fovy, aspect, near, far )
     var f = 1.0 / Math.tan( radians(fovy) / 2 );
     var d = far - near;
 
-    var result = mat4();
+    var result = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    result.matrix = true;
     
     result[0][0] = f / aspect;
     result[1][1] = f;
@@ -525,7 +532,7 @@ function perspective( fovy, aspect, near, far )
 
 function computeMidPoint( p1, p2 )
 {
-    var result = vec3();
+    var result = [0,0,0];
     
     for( i = 0; i < 3; i++ ) {
         
@@ -538,7 +545,7 @@ function computeMidPoint( p1, p2 )
 
 function computeCentroid( p1, p2, p3 )
 {
-    var result = vec3();
+    var result = [0,0,0];
     
     for( i = 0; i < 3; i++ ) {
         
@@ -570,7 +577,7 @@ function normalize( v )
 
 function symmetric( v )
 {
-    var result = vec3();
+    var result = [0,0,0];
     
     for( i = 0; i < 3; i++ ) {
         
@@ -602,7 +609,7 @@ function dotProduct( v1, v2 )
 
 function vectorProduct( v1, v2 )
 {
-    var res = vec3();
+    var res = [0,0,0];
 
 	res[0] = v1[1] * v2[2] - v1[2] * v2[1];
 
@@ -619,11 +626,11 @@ function vectorProduct( v1, v2 )
 
 function computeNormalVector( p0, p1, p2 )
 {
-	var v1 = vec3();
+	var v1 = [0,0,0];
 
-	var v2 = vec3();
+	var v2 = [0,0,0];
 
-	var result = vec3();
+	var result = [0,0,0];
 
     v1[0] = p1[0] - p0[0];
 
@@ -650,7 +657,7 @@ function computeNormalVector( p0, p1, p2 )
 
 function multiplyPointByMatrix( m, p )
 {
-	var result = vec4();
+	var result = [0,0,0,1];
 	
 	for( var i = 0; i < 4; i++ ) {
 		
@@ -665,7 +672,7 @@ function multiplyPointByMatrix( m, p )
 
 function multiplyVectorByMatrix( m, p )
 {
-	var result = vec4();
+	var result = [0,0,0,1];
 	
 	for( var i = 0; i < 4; i++ ) {
 		

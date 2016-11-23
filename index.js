@@ -503,7 +503,7 @@ function drawScene() {
         for (jjj = 0; jjj < 15; jjj++) {
             drawModel(angleXX, angleYY, angleZZ,
                 0.1, 0.1, 0.1,
-                jjj*0.12-0.84, iii*0.11+0.2-tdown, 0,
+                jjj*0.12-0.84+invpos[iii][jjj], iii*0.11+0.2-tdown, 0,
                 mvMatrix,
                 primitiveType);
         }
@@ -622,6 +622,14 @@ function animate() {
 		    bulletready = true;
         }
 
+        if(tybullet > (-tdown+0.2)-0.05 && tybullet < (-tdown+0.2)+0.05){ //in range first row
+            var y=0; //1st row
+            var x = parseInt(-txbullet/-0.12)+7;
+            console.log("here");
+            invpos[y][x] = 3;
+            tybullet = 1.3;
+        }
+
 
 		// Rotating the light sources
 	
@@ -724,6 +732,8 @@ function setEventListeners(){
                     tboss = -1.3;
                     tplayer = 0.0;
                     level = 1;
+                    invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
                     document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
 
                     gameover = false;
