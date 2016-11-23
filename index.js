@@ -42,6 +42,7 @@ var globalTz = 0.0;
 var tdown = 0.0;
 
 var tboss = -1.3;
+var tdboss = 0;
 
 var level = 1;
 var points = 0;
@@ -524,7 +525,7 @@ function drawScene() {
     }
     drawModel(angleXX, angleYY, angleZZ,
         0.1, 0.1, 0.1,
-        tboss, 0.8-tdown, 0,
+        tboss+tdboss, 0.8-tdown, 0,
         mvMatrix,
         primitiveType);
 
@@ -613,7 +614,11 @@ function animate() {
 
         tdown += level*0.0005;
 		tboss += (level+1)/2*0.02;
-		if (tboss > 1.3){
+
+        if (tboss > 2.9){ // if boss dead
+            tboss = 3;
+        }
+		if (tboss > 1.3){ // if boss alive
 		    tboss = - 1.3;
         }
 
@@ -722,12 +727,24 @@ function killinvaders(){
             return;
         }
     }
+    if(tybullet > (-tdown+0.2)-0.05+0.60 && tybullet < (-tdown+0.2)+0.05+0.60) {
+         //boss row
+        if ((txbullet > tboss-0.17) &&(txbullet < tboss+0.17)) {
+            tdboss = 3;
+            points += 100;
+            document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
+            tybullet = 1.3;
+            return;
+        }
+    }
 }
 
 function resetlevel() {
     tdown = 0.0;
     tboss = -1.3;
+    tdboss = 0;
     tplayer = 0.0;
+    txbullet = 1.3;
     invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
 }
