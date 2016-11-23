@@ -58,6 +58,16 @@ var bulletready = true;
 var invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
 
+// SOUNDS
+
+var newlevelaudio = new Audio('newlevel.wav');
+var killaudio = new Audio('invaderkill.mp3');
+var shootaudio = new Audio('shoot.mp3');
+var alestorm = new Audio('alestorm.mp3');
+var gameoveraudio = new Audio('gameover.wav');
+var pauseaudio = new Audio('pause.wav');
+
+
 // The rotation angles in degrees
 
 var angleXX = 0.0;
@@ -612,8 +622,8 @@ function animate() {
 
 	    // position
 
-        tdown += level*0.0003;
-		tboss += (level+1)/2*0.02;
+        tdown += level/2*0.0003;
+		tboss += (level/2+1)/2*0.02;
 
         if (tboss > 2.9){ // if boss dead
             tboss = 3;
@@ -662,12 +672,16 @@ function animate() {
     }
 
     if(rowskilled == 5){
+        newlevelaudio.play();
 	    resetlevel();
 	    level += 1;
     }
 
     if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
         gameover = true;
+        gameoveraudio.play();
+        alestorm.pause();
+        alestorm.currentTime = 0;
         document.getElementById('myLink').innerHTML = "Game Over - Press R to restart";
     }
 
@@ -682,6 +696,7 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -692,6 +707,7 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -702,6 +718,7 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -712,6 +729,7 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -722,6 +740,7 @@ function killinvaders(){
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -729,9 +748,10 @@ function killinvaders(){
     }
     if(tybullet > (-tdown+0.2)-0.05+0.60 && tybullet < (-tdown+0.2)+0.05+0.60) {
          //boss row
-        if ((txbullet > tboss-0.17) &&(txbullet < tboss+0.17)) {
+        if ((txbullet > (tboss+tdboss)-0.17) &&(txbullet < (tboss+tdboss)+0.17)) {
             tdboss = 3;
             points += 100;
+            killaudio.play();
             document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
             tybullet = 1.3;
             return;
@@ -764,8 +784,6 @@ function tick() {
     }
 
 }
-
-
 
 
 //----------------------------------------------------------------------------
@@ -822,14 +840,18 @@ function setEventListeners(){
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.75;
                     txbullet = tplayer;
+                    shootaudio.play();
                     bulletready = false;
                 }
 
                 break;
-            case 114:
+            case 114: // R
                 if (gameover) { // restart game
 
                     resetlevel();
+
+
+                    alestorm.play();
 
                     level = 1;
                     points = 0;
@@ -846,6 +868,15 @@ function setEventListeners(){
             case 112 : // P
                 if (!gameover) {
                     pause = !pause;
+                    if(pause){
+                        pauseaudio.play();
+                        alestorm.pause();
+                    }
+                    else{
+                        alestorm.play();
+                        pauseaudio.pause();
+                        pauseaudio.currentTime = 0;
+                    }
                     if (pause) document.getElementById('myLink').innerHTML = "Game Paused";
                     else document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
                     break;
