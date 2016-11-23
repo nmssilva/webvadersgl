@@ -44,6 +44,7 @@ var tdown = 0.0;
 var tboss = -1.3;
 
 var level = 1;
+var points = 0;
 
 var tplayer = 0.0;
 
@@ -627,6 +628,8 @@ function animate() {
             var x = parseInt(-txbullet/-0.12)+7;
             console.log("here");
             invpos[y][x] = 3;
+            points += 10;
+            document.getElementById('right').innerHTML = "Level: "+level+" <br> Points: "+points;
             tybullet = 1.3;
         }
 
@@ -734,7 +737,9 @@ function setEventListeners(){
                     level = 1;
                     invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+
                     document.getElementById('myLink').innerHTML = "Destroy all invaders!!";
+                    document.getElementById('right').innerHTML = "Level: 1 <br> Points: 0";
 
                     gameover = false;
 
