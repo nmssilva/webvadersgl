@@ -674,10 +674,11 @@ function animate() {
     }
 
     if(rowskilled == 5){
+        level += 1;
         if(!muted)
             newlevelaudio.play();
 	    resetlevel();
-	    level += 1;
+        document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
     }
 
     if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
@@ -777,6 +778,7 @@ function resetlevel() {
     txbullet = 1.3;
     invpos = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+
 }
 
 function mute(){
