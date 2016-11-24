@@ -23,21 +23,9 @@ var triangleVertexColorBuffer = null;
 
 // The GLOBAL transformation parameters
 
-var globalAngleYY = 0.0;
-
 var globalTz = 0.0;
 
-// The local transformation parameters
-
-// The translation vector
-
-//var tx = 0.0;
-
-//var ty = 0.0;
-
-//var tz = 0.0;
-
-// Position vectors
+// translation and game variables
 
 var tdown = 0.0;
 
@@ -69,7 +57,6 @@ var pauseaudio = new Audio('pause.wav');
 
 var muted = false;
 
-
 // The rotation angles in degrees
 
 var angleXX = 0.0;
@@ -78,29 +65,7 @@ var angleYY = 0.0;
 
 var angleZZ = 0.0;
 
-// The scaling factors
-
-var sx = 0.5;
-
-var sy = 0.5;
-
-var sz = 0.5;
-
-// GLOBAL Animation controls
-
-var globalRotationYY_ON = 1;
-
-var globalRotationYY_DIR = 1;
-
-var globalRotationYY_SPEED = 1;
-
 // Local Animation controls
-
-var rotationXX_ON = 1;
-
-var rotationXX_DIR = 1;
-
-var rotationXX_SPEED = 1;
  
 var rotationYY_ON = 1;
 
@@ -117,38 +82,8 @@ var rotationZZ_SPEED = 1;
 // To allow choosing the way of drawing the model triangles
 
 var primitiveType = null;
- 
-// To allow choosing the projection type
-
-var projectionType = 0;
-
-// NEW --- Model Material Features
-
-// Ambient coef.
-
-var kAmbi = [ 0.2, 0.2, 0.2 ];
-
-// Difuse coef.
-
-var kDiff = [ 0.7, 0.7, 0.7 ];
-
-// Specular coef.
-
-var kSpec = [ 0.7, 0.7, 0.7 ];
-
-// Phong coef.
-
-var nPhong = 10;
-
-// Initial model has just ONE TRIANGLE
 
 var vertices = [];
-
-var normals = [];
-
-// Initial color values just for testing!!
-
-// They are to be computed by the Phong Illumination Model
 
 var colors = [];
 
@@ -156,10 +91,7 @@ var colors = [];
 //
 // The WebGL code
 //
-
-//----------------------------------------------------------------------------
-//
-//  Rendering
+// Rendering
 //
 
 // Handling the Vertex and the Color Buffers
@@ -197,218 +129,6 @@ function initBuffers(){
 
 //----------------------------------------------------------------------------
 
-//	 Computing the illumination and rendering the model
-
-function computeIllumination( mvMatrix ) {
-
-	// Phong Illumination Model
-	
-	// Clearing the colors array
-	
-	for( var i = 0; i < colors.length; i++ )
-	{
-		colors[i] = 0.0;
-	}
-	
-    // SMOOTH-SHADING 
-
-    // Compute the illumination for every vertex
-
-    // Iterate through the vertices
-    
-    for( var vertIndex = 0; vertIndex < vertices.length; vertIndex += 3 )
-    {	
-		// For every vertex
-		
-		// GET COORDINATES AND NORMAL VECTOR
-		
-		var auxP = vertices.slice( vertIndex, vertIndex + 3 );
-		
-		var auxN = normals.slice( vertIndex, vertIndex + 3 );
-
-        // CONVERT TO HOMOGENEOUS COORDINATES
-
-		auxP.push( 1.0 );
-		
-		auxN.push( 0.0 );
-		
-        // APPLY CURRENT TRANSFORMATION
-
-        var pointP = multiplyPointByMatrix( mvMatrix, auxP );
-
-        var vectorN = multiplyVectorByMatrix( mvMatrix, auxN );
-        
-        normalize( vectorN );
-
-		// VIEWER POSITION
-		
-		var vectorV = vec3();
-		
-		if( projectionType == 0 ) {
-		
-			// Orthogonal 
-			
-			vectorV[2] = 1.0;
-		}	
-		else {
-			
-		    // Perspective
-		    
-		    // Viewer at ( 0, 0 , 0 )
-		
-			vectorV = symmetric( pointP );
-		}
-		
-        normalize( vectorV );
-
-	    // Compute the 3 components: AMBIENT, DIFFUSE and SPECULAR
-	    
-	    // FOR EACH LIGHT SOURCE
-	    
-	    for(var l = 0; l < lightSources.length; l++ )
-	    {
-			if( lightSources[l].isOff() ) {
-				
-				continue;
-			}
-			
-	        // INITIALIZE EACH COMPONENT, with the constant terms
-	
-		    var ambientTerm = [0,0,0];
-		
-		    var diffuseTerm = [0,0,0];
-		
-		    var specularTerm = [0,0,0];
-		
-		    // For the current light source
-		
-		    ambient_Illumination = lightSources[l].getAmbIntensity();
-		
-		    int_Light_Source = lightSources[l].getIntensity();
-		
-		    pos_Light_Source = lightSources[l].getPosition();
-		    
-		    // Animating the light source, if defined
-
-            var lightSourceMatrix = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];// mat4();
-            lightSourceMatrix.matrix = true;
-		    
-		    // COMPLETE THE CODE FOR THE OTHER ROTATION AXES
-		    
-		    if( lightSources[l].isRotYYOn() ) 
-		    {
-				lightSourceMatrix = mult( 
-						lightSourceMatrix, 
-						rotationYYMatrix( lightSources[l].getRotAngleYY() ) );
-			}
-			
-	        for( var i = 0; i < 3; i++ )
-	        {
-			    // AMBIENT ILLUMINATION --- Constant for every vertex
-	   
-			    ambientTerm[i] = ambient_Illumination[i] * kAmbi[i];
-	
-	            diffuseTerm[i] = int_Light_Source[i] * kDiff[i];
-	
-	            specularTerm[i] = int_Light_Source[i] * kSpec[i];
-	        }
-	    
-	        // DIFFUSE ILLUMINATION
-	        
-	        var vectorL = [0,0,0,1];
-	
-	        if( pos_Light_Source[3] == 0.0 )
-	        {
-	            // DIRECTIONAL Light Source
-	            
-	            vectorL = multiplyVectorByMatrix( 
-							lightSourceMatrix,
-							pos_Light_Source );
-	        }
-	        else
-	        {
-	            // POINT Light Source
-	
-	            // TO DO : apply the global transformation to the light source?
-	
-	            vectorL = multiplyPointByMatrix( 
-							lightSourceMatrix,
-							pos_Light_Source );
-				
-				for( var i = 0; i < 3; i++ )
-	            {
-	                vectorL[ i ] -= pointP[ i ];
-	            }
-	        }
-	
-			// Back to Euclidean coordinates
-			
-			vectorL = vectorL.slice(0,3);
-			
-	        normalize( vectorL );
-	
-	        var cosNL = dotProduct( vectorN, vectorL );
-	
-	        if( cosNL < 0.0 )
-	        {
-				// No direct illumination !!
-				
-				cosNL = 0.0;
-	        }
-	
-	        // SEPCULAR ILLUMINATION 
-	
-	        var vectorH = add( vectorL, vectorV );
-	
-	        normalize( vectorH );
-	
-	        var cosNH = dotProduct( vectorN, vectorH );
-	
-			// No direct illumination or viewer not in the right direction
-			
-	        if( (cosNH < 0.0) || (cosNL <= 0.0) )
-	        {
-	            cosNH = 0.0;
-	        }
-	
-	        // Compute the color values and store in the colors array
-	        
-	        var tempR = ambientTerm[0] + diffuseTerm[0] * cosNL + specularTerm[0] * Math.pow(cosNH, nPhong);
-	        
-	        var tempG = ambientTerm[1] + diffuseTerm[1] * cosNL + specularTerm[1] * Math.pow(cosNH, nPhong);
-	        
-	        var tempB = ambientTerm[2] + diffuseTerm[2] * cosNL + specularTerm[2] * Math.pow(cosNH, nPhong);
-	        
-			colors[vertIndex] += tempR;
-	        
-	        // Avoid exceeding 1.0
-	        
-			if( colors[vertIndex] > 1.0 ) {
-				
-				colors[vertIndex] = 1.0;
-			}
-	        
-	        // Avoid exceeding 1.0
-	        
-			colors[vertIndex + 1] += tempG;
-			
-			if( colors[vertIndex + 1] > 20/255 ) {
-				
-				colors[vertIndex + 1] = 20/255;
-			}
-			
-			colors[vertIndex + 2] += tempB;
-	        
-	        // Avoid exceeding 1.0
-	        
-			if( colors[vertIndex + 2] > 147/255 ) {
-				
-				colors[vertIndex + 2] = 147/255;
-			}
-	    }	
-	}
-}
-
 function drawModel( angleXX, angleYY, angleZZ, 
 					sx, sy, sz,
 					tx, ty, tz,
@@ -436,14 +156,8 @@ function drawModel( angleXX, angleYY, angleZZ,
 	var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 	
 	gl.uniformMatrix4fv(mvUniform, false, new Float32Array(flatten(mvMatrix)));
-	
-	// NEW - Aux. Function for computing the illumination
-	
-	// computeIllumination( mvMatrix );
-	
+
 	// Associating the data to the vertex shader
-	
-	// This can be done in a better way !!
 
 	initBuffers();
 	
@@ -487,7 +201,6 @@ function drawScene() {
 	
 	mvMatrix = translationMatrix( 0, 0, globalTz );
 
-
 	// Instantianting the current model
 
     //INVADERS GRID
@@ -525,7 +238,6 @@ function drawScene() {
     }
 
     //BOSS
-
     vertices = boss.slice();
     colors = boss.slice();
     for(var i=0; i < colors.length; i++){
@@ -589,20 +301,8 @@ function animate() {
 	if( lastTime != 0 ) {
 		
 		var elapsed = timeNow - lastTime;
-		
-		// Global rotation
-		
-		if( globalRotationYY_ON ) {
-
-			globalAngleYY += globalRotationYY_DIR * globalRotationYY_SPEED * (90 * elapsed) / 1000.0;
-	    }
 
 		// Local rotations
-		
-		if( rotationXX_ON && false) {
-
-			angleXX += rotationXX_DIR * rotationXX_SPEED * (90 * elapsed) / 1000.0;
-	    }
 
 		if( rotationYY_ON ) {
 
@@ -643,18 +343,10 @@ function animate() {
 
         killinvaders();
 
-
-
-		// Rotating the light sources
-	
-		if( lightSources[0].isRotYYOn() ) {
-
-			var angle = lightSources[0].getRotAngleYY() + (90 * elapsed) / 1000.0;
-		
-			lightSources[0].setRotAngleYY( angle );
-		}
 	}
 
+
+	// updating game variables
 	var rowskilled = 0;
 
 	if (!invpos[0].includes(0)){
@@ -681,7 +373,7 @@ function animate() {
         document.getElementById('right').innerHTML = "Level: " + level + " <br> Points: " + points;
     }
 
-    if (0.11*(rowskilled+1)+0.2-tdown < -0.63){
+    if (0.11*(rowskilled+1)+0.2-tdown < -0.63){ // gameover condition
         gameover = true;
         if(!muted)
             gameoveraudio.play();
@@ -697,7 +389,7 @@ function killinvaders(){
 
     var x = parseInt(-txbullet/-0.12)+7; // x pos of invader
     var y = 0; //1st row
-    if(tybullet > (-tdown+0.2)-0.05 && tybullet < (-tdown+0.2)+0.05) { //in range first row
+    if(tybullet > (-tdown+0.2)-0.05 && tybullet < (-tdown+0.2)+0.05) {
         if (invpos[y][x] === 0) {
             invpos[y][x] = 3;
             points += 10;
@@ -926,32 +618,15 @@ function initWebGL( canvas ) {
 		
 		// Create the WebGL context
 		
-		// Some browsers still need "experimental-webgl"
-		
 		gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-		
-		// DEFAULT: The viewport occupies the whole canvas 
-		
-		// DEFAULT: The viewport background color is WHITE
-		
-		// NEW - Drawing the triangles defining the model
-		
 		primitiveType = gl.TRIANGLES;
-		
-		// DEFAULT: Face culling is DISABLED
-		
 		// Enable FACE CULLING
-		
 		gl.enable( gl.CULL_FACE );
 		
 		// DEFAULT: The BACK FACE is culled!!
-		
-		// The next instruction is not needed...
-		
 		gl.cullFace( gl.BACK );
 
 		// Enable DEPTH-TEST
-		
 		gl.enable( gl.DEPTH_TEST );        
 	} catch (e) {
 	}
@@ -974,7 +649,7 @@ function runWebGL() {
 	
 	initBuffers();
 	
-	tick();		// NEW --- A timer controls the rendering / animation
+	tick();
 
 	outputInfos();
 }
