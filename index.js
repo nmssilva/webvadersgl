@@ -59,11 +59,8 @@ var muted = false;
 
 // The rotation angles in degrees
 
-var angleXX = 0.0;
-
 var angleYY = 0.0;
-
-var angleZZ = 0.0;
+var angleplayer = 0.0;
 
 // Local Animation controls
  
@@ -223,7 +220,7 @@ function drawScene() {
         }
 
         for (jjj = 0; jjj < 15; jjj++) {
-            drawModel(angleXX, angleYY, angleZZ,
+            drawModel(0.0, angleYY, 0.0,
                 0.1, 0.1, 0.1,
                 jjj*0.12-0.84+invpos[iii][jjj], iii*0.11+0.2-tdown, 0,
                 mvMatrix,
@@ -241,7 +238,7 @@ function drawScene() {
             colors[i+2]+=0.2;
         }
     }
-    drawModel(angleXX, angleYY, angleZZ,
+    drawModel(0.0, angleYY, 0.0,
         0.1, 0.1, 0.1,
         tboss+tdboss, 0.8-tdown, 0,
         mvMatrix,
@@ -255,7 +252,7 @@ function drawScene() {
             colors[i]+=0.55;
         }
     }
-    drawModel(0.0, 0.0, angleZZ,
+    drawModel(0.0, angleplayer, 0.0,
         0.1, 0.1, 0.1,
         tplayer, -0.85, 0,
         mvMatrix,
@@ -298,18 +295,17 @@ function animate() {
 
 		// Local rotations
 
-		if( rotationYY_ON ) {
+        angleYY += rotationYY_DIR * rotationYY_SPEED * (90 * elapsed) / 1000.0;
+        if (Math.abs(angleYY) >= 30){
 
-			angleYY += rotationYY_DIR * rotationYY_SPEED * (90 * elapsed) / 1000.0;
-			if (Math.abs(angleYY) >= 30){
+            if(angleYY >= 30)
+                angleYY = 29;
+            else
+                angleYY = -29;
+            rotationYY_DIR = -rotationYY_DIR;
+        }
 
-				if(angleYY >= 30)
-					angleYY = 29;
-				else
-					angleYY = -29;
-				rotationYY_DIR = -rotationYY_DIR;
-			}
-	    }
+        angleplayer = -tplayer*50;
 
 	    // position
 
