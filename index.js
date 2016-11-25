@@ -73,12 +73,6 @@ var rotationYY_DIR = 1;
 
 var rotationYY_SPEED = 1;
  
-var rotationZZ_ON = 1;
-
-var rotationZZ_DIR = 1;
-
-var rotationZZ_SPEED = 1;
- 
 // To allow choosing the way of drawing the model triangles
 
 var primitiveType = null;
@@ -315,11 +309,6 @@ function animate() {
 					angleYY = -29;
 				rotationYY_DIR = -rotationYY_DIR;
 			}
-	    }
-
-		if( rotationZZ_ON && false ) {
-
-			angleZZ += rotationZZ_DIR * rotationZZ_SPEED * (90 * elapsed) / 1000.0;
 	    }
 
 	    // position
