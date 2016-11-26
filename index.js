@@ -63,8 +63,6 @@ var angleYY = 0.0;
 var angleplayer = 0.0;
 
 // Local Animation controls
- 
-var rotationYY_ON = 1;
 
 var rotationYY_DIR = 1;
 
