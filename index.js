@@ -535,6 +535,10 @@ function setEventListeners(){
         switch (event.key) {
 
             //shoot or restart
+            case 32 : // space bar
+                if (!pause && !gameover)
+                    event.preventDefault(); //stop scrolling when shooting on screens with small height
+            case 119 : // w
             case " " : // space bar
             case "w" : case "W": // w
                 if (!pause && !gameover && bulletready) { // shoot
