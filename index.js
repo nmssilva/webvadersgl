@@ -504,13 +504,12 @@ function setEventListeners(){
 
     document.addEventListener("keydown", function(event) {
 
-        var key = event.keyCode; // ASCII
         if (!pause && !gameover){
 
-            switch (key) {
+            switch (event.key) {
                 //left
-                case 37 : //left arrow
-                case 65 : // A
+                case "ArrowLeft" : //left arrow
+                case "a" : case "A" : // A
                     if(tplayer < -0.85){
                         break;
                     }
@@ -518,8 +517,8 @@ function setEventListeners(){
                     break;
 
                 //right
-                case 39 : //right arrow
-                case 68 : // D
+                case "ArrowRight" : //right arrow
+                case "d" : case "D" : // D
                     if(tplayer > 0.85){
                         break;
                     }
@@ -533,15 +532,15 @@ function setEventListeners(){
 
     document.addEventListener("keypress", function(event) {
 
-        var key = event.keyCode; // ASCII
-
-        switch (key) {
+        switch (event.key) {
 
             //shoot or restart
             case 32 : // space bar
                 if (!pause && !gameover)
                     event.preventDefault(); //stop scrolling when shooting on screens with small height
             case 119 : // w
+            case " " : // space bar
+            case "w" : case "W": // w
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.75;
                     txbullet = tplayer;
@@ -551,7 +550,7 @@ function setEventListeners(){
                 }
 
                 break;
-            case 114: // R
+            case "r": case "R": // R
                 if (gameover) { // restart game
 
                     resetlevel();
@@ -571,7 +570,7 @@ function setEventListeners(){
                 break;
 
             //pause
-            case 112 : // P
+            case "p" : case "P": // P
                 if (!gameover) {
                     pause = !pause;
                     if(pause){
