@@ -539,6 +539,8 @@ function setEventListeners(){
 
             //shoot or restart
             case 32 : // space bar
+                if (!pause && !gameover)
+                    event.preventDefault(); //stop scrolling when shooting on screens with small height
             case 119 : // w
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.75;
