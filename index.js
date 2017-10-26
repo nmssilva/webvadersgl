@@ -536,7 +536,6 @@ function setEventListeners(){
 
             //shoot or restart
             case " " : // space bar
-                event.preventDefault(); //stop scrolling when shooting on screens with small height
             case "w" : case "W": // w
                 if (!pause && !gameover && bulletready) { // shoot
                     tybullet = -0.75;
@@ -621,6 +620,8 @@ function initWebGL( canvas ) {
 function runWebGL() {
 
 	var canvas = document.getElementById("my-canvas");
+	
+        event.preventDefault(); //stop scrolling when shooting on screens with small height
 	
 	initWebGL( canvas );
 
