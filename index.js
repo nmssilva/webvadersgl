@@ -307,7 +307,7 @@ function animate() {
 
 	    // position
 
-        tdown += level/2*0.0003;
+        tdown += (level + 1)/2*0.0003;
 		tboss += (level/2+1)/2*0.02;
 
         if (tboss > 2.9){ // if boss dead
